@@ -1660,10 +1660,10 @@ namespace Isolde
         /// <summary>
         /// Adds a card to the currently active hero's hand.
         /// </summary>
-        /// <param name="cardId"></param>
-        /// <param name="randomlyUpgraded"></param>
-        /// <param name="vanish"></param>
-        /// <param name="costZero"></param>
+        /// <param name="cardId">Id of the card to add</param>
+        /// <param name="randomlyUpgraded">Whether or not you want the card to be randomly upgraded.</param>
+        /// <param name="vanish">Whether the card should vanish</param>
+        /// <param name="costZero">Whether the card should cost 0.</param>
         public static void AddCardToHand(string cardId, bool randomlyUpgraded = true, bool vanish = true, bool costZero = true)
         {
             if (MatchManager.Instance.CountHeroHand() == 10)
