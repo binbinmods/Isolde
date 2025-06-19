@@ -1,0 +1,15 @@
+{
+    "BaseSkin": true,
+    "PerkLevel": 0,
+    "SkinGO": "skinisolde",
+    "SkinID": "sopranobase",
+    "SkinName": "Default",
+    "SkinOrder": 0,
+    "SkinSubclass": "soprano",
+    "Sku": "",
+    "SpritePortrait": "isoldePortrait",
+    "SpritePortraitGrande": "isoldePortraitGrande",
+    "SpriteSilueta": "isoldeSilueta",
+    "SpriteSiluetaGrande": "isoldeSiluetaGrande",
+    "SteamStat": ""
+}

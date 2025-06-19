@@ -1,5 +1,5 @@
 {
-    "Activation": "None",
+    "Activation": "CastCard",
     "AuraCurseBonus1": "",
     "AuraCurseBonus2": "",
     "AuraCurseBonus3": "",
@@ -23,12 +23,12 @@
     "DamageBonusPercentValue": 0.0,
     "DamageBonusPercentValue2": 0.0,
     "DamageBonusPercentValue3": 0.0,
-    "Description": "<Description of what the innate does>",
+    "Description": "When you play a Song, reduce the cost of the highest cost Elemental Spell card by 1 until discarded. When you play an Elemental Spell, reduce the cost of the highest cost Song by 1 until discarded. (3 times/turn) ",
     "HealFlatBonus": 0,
     "HealPercentBonus": 0.0,
     "HealReceivedFlatBonus": 0,
     "HealReceivedPercentBonus": 0.0,
-    "ID": "<ID of the trait. Must match the name of the file and the ID found in <subclassname>.json. Example - characternametrait0name or ulfvitrcalltherain>",
+    "ID": "sopranotrait2a",
     "ResistModified1": "None",
     "ResistModified2": "None",
     "ResistModified3": "None",
@@ -36,8 +36,8 @@
     "ResistModifiedValue2": 0,
     "ResistModifiedValue3": 0,
     "TimesPerRound": 0,
-    "TimesPerTurn": 0,
+    "TimesPerTurn": 3,
     "TraitCard": "",
     "TraitCardForAllHeroes": "",
-    "TraitName": "<Name of the trait. Example - Call the Rain"
+    "TraitName": "Soprano Duality"
 }

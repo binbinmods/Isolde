@@ -116,7 +116,7 @@ def handle_traits(xls:pd.ExcelFile):
     with open(os.path.join(trait_dir,'traitSource.json'), 'r') as file:
         data = json.load(file)
 
-    vars_to_set = ["ID","TraitName","Description","Activation","TraitCard"]
+    vars_to_set = ["ID","TraitName","Description","Activation","TraitCard","TimesPerTurn"]
     for index, row in df.iterrows():
         for var in vars_to_set:
             data[var] = row[var]
