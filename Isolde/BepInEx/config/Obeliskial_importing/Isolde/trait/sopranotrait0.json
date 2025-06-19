@@ -23,7 +23,7 @@
     "DamageBonusPercentValue": 0.0,
     "DamageBonusPercentValue2": 0.0,
     "DamageBonusPercentValue3": 0.0,
-    "Description": "At the start of your turn, apply 1 Sharp, 4 Chill, 4 Insane to all heroes and Monsters.",
+    "Description": "At the start of your turn, apply 1 Sharp, 4 Chill, 4 Insane to all heroes and monsters.",
     "HealFlatBonus": 0,
     "HealPercentBonus": 0.0,
     "HealReceivedFlatBonus": 0,

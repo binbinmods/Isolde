@@ -7,7 +7,8 @@ using UnityEngine;
 using static Isolde.CustomFunctions;
 using static Isolde.Plugin;
 using static Isolde.DescriptionFunctions;
-using static Isolde.CharacterFunctions;
+// using static Isolde.CustomFunctions;
+// using static Obeliskial_Essentials.CustomFunctions;
 using System.Text;
 using TMPro;
 using Obeliskial_Essentials;
@@ -69,27 +70,24 @@ namespace Isolde
 
             if (_trait == trait0)
             {
-                // Gain 1 evade at combat start 
-                _character.SetAuraTrait(_character, "evade", 1);
+                // At the start of your turn, apply 1 Sharp, 4 Chill, 4 Insane to all heroes and monsters.
+                ApplyAuraCurseToAll("sharp", 1, AppliesTo.Global, _character, useCharacterMods: true);
+                ApplyAuraCurseToAll("chill", 4, AppliesTo.Global, _character, useCharacterMods: true);
+                ApplyAuraCurseToAll("insane", 4, AppliesTo.Global, _character, useCharacterMods: true);
             }
 
 
             else if (_trait == trait2a)
             {
                 // trait2a
-                // Evasion +1. 
-                // Evasion on you stacks and increases All Damage by 1 per charge. 
-                // When you play a Defense card, gain 1 Energy and Draw 1. (2 times/turn)
+                // When you play a Song, reduce the cost of the highest cost Elemental Spell card by 1 until discarded.
+                //  When you play an Elemental Spell, reduce the cost of the highest cost Song by 1 until discarded. (3 times/turn) 
                 string traitName = traitData.TraitName;
                 string traitId = _trait;
+                int bonusActivations = _character.HaveTrait(trait4b) ? 1 : 0;
 
-                if (CanIncrementTraitActivations(traitId) && _castedCard.HasCardType(Enums.CardType.Defense))// && MatchManager.Instance.energyJustWastedByHero > 0)
-                {
-                    LogDebug($"Handling Trait {traitId}: {traitName}");
-                    _character?.ModifyEnergy(1);
-                    DrawCards(1);
-                    IncrementTraitActivations(traitId);
-                }
+                DualityCardType(ref _character, ref _castedCard, [Enums.CardType.Song], [Enums.CardType.Fire_Spell, Enums.CardType.Cold_Spell, Enums.CardType.Lightning_Spell], traitId, bonusActivations);
+
             }
 
 
@@ -97,7 +95,8 @@ namespace Isolde
             else if (_trait == trait2b)
             {
                 // trait2b:
-                // Stealth on heroes increases All Damage by an additional 15% per charge and All Resistances by an additional 5% per charge.",
+                // Sharp +1. Sharp on enemies reduces All Resistances by 1% per charge.
+                // Handled in GACM
                 string traitName = traitData.TraitName;
                 string traitId = _trait;
 
@@ -106,10 +105,18 @@ namespace Isolde
             else if (_trait == trait4a)
             {
                 // trait 4a;
-                // Evasion on you can't be purged unless specified. 
-                // Stealth grants 25% additional damage per charge.",
+                // Once per turn, when you play a Cold Spell, add a randomly upgraded Last Requiem to your hand. Cost 0 and Vanish.
+
                 string traitName = traitData.TraitName;
                 string traitId = _trait;
+
+                if (CanIncrementTraitActivations(traitId) && _castedCard.HasCardType(Enums.CardType.Cold_Spell))
+                {
+                    if (!((UnityEngine.Object)MatchManager.Instance != (UnityEngine.Object)null) || !((UnityEngine.Object)_castedCard != (UnityEngine.Object)null))
+                        return;
+                    AddCardToHand("lastrequiem");
+                    IncrementTraitActivations(traitId);
+                }
 
                 LogDebug($"Handling Trait {traitId}: {traitName}");
             }
@@ -117,7 +124,8 @@ namespace Isolde
             else if (_trait == trait4b)
             {
                 // trait 4b:
-                // Heroes Only lose 75% stealth charges rounding down when acting in stealth.
+                // Buffer +1, Fast +1. Sharp on Monsters reduces all damage by 0.5 per charge. Soprano Duality can be activated an additional time.
+                // Handled in GACM
                 string traitName = traitData.TraitName;
                 string traitId = _trait;
                 LogDebug($"Handling Trait {traitId}: {traitName}");
@@ -156,45 +164,28 @@ namespace Isolde
 
             Character characterOfInterest = _type == "set" ? _characterTarget : _characterCaster;
             string traitOfInterest;
+            bool hasRust = characterOfInterest.EffectCharges("rust") >= 0;
             switch (_acId)
             {
-                // trait2a:
-                // Evasion on you stacks and increases All Damage by 1 per charge. 
 
                 // trait2b:
-                // Stealth on heroes increases All Damage by an additional 15% per charge and All Resistances by an additional 5% per charge.",
-
-                // trait 4a;
-                // Evasion on you can't be purged unless specified. 
-                // Stealth grants 25% additional damage per charge.",
+                // Sharp on enemies reduces All Resistances by 1% per charge.
 
                 // trait 4b:
-                // Heroes Only lose 75% stealth charges rounding down when acting in stealth.
+                // Sharp on Monsters reduces All Damage by 0.5 per charge
 
-                case "evasion":
-                    traitOfInterest = trait2a;
-                    if (IfCharacterHas(characterOfInterest, CharacterHas.Trait, traitOfInterest, AppliesTo.ThisHero))
-                    {
-                        __result.GainCharges = true;
-                        __result.AuraDamageType = Enums.DamageType.All;
-                        float multiplierAmount = 1.0f;  //characterOfInterest.HaveTrait(trait4a) ? 0.3f : 0.2f;
-                        __result.AuraDamageIncreasedPerStack = multiplierAmount;
-                        // __result.HealDoneTotal = Mathf.RoundToInt(multiplierAmount * characterOfInterest.GetAuraCharges("shield"));
-                    }
-                    traitOfInterest = trait4a;
-                    if (IfCharacterHas(characterOfInterest, CharacterHas.Trait, traitOfInterest, AppliesTo.ThisHero))
-                    {
-                        __result.Removable = false;
-                    }
-                    break;
-                case "stealth":
+                case "sharp":
                     traitOfInterest = trait2b;
-                    if (IfCharacterHas(characterOfInterest, CharacterHas.Trait, traitOfInterest, AppliesTo.Heroes))
+                    if (IfCharacterHas(characterOfInterest, CharacterHas.Trait, traitOfInterest, AppliesTo.Monsters))
                     {
                         __result.ResistModified = Enums.DamageType.All;
-                        __result.ResistModifiedPercentagePerStack += 5;
-                        __result.AuraDamageType = Enums.DamageType.All;
-                        __result.AuraDamageIncreasedPercentPerStack += 15;
+                        __result.ResistModifiedPercentagePerStack = hasRust ? -4.5f : -3;
+                    }
+                    traitOfInterest = trait4b;
+                    if (IfCharacterHas(characterOfInterest, CharacterHas.Trait, traitOfInterest, AppliesTo.Monsters))
+                    {
+                        __result.AuraDamageType4 = Enums.DamageType.All;
+                        __result.AuraDamageIncreasedPerStack4 = hasRust ? -0.75f : -0.5f;
                     }
                     break;
             }

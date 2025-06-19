@@ -23,7 +23,7 @@
     "DamageBonusPercentValue": 0.0,
     "DamageBonusPercentValue2": 0.0,
     "DamageBonusPercentValue3": 0.0,
-    "Description": "Sharp +1. Sharp on enemies reduces All Resistances by 1% per charge.",
+    "Description": "Sharp +1. Sharp on enemies reduces All Resistances by 3% per charge. This is amplified rather than reduced by Rust.",
     "HealFlatBonus": 0,
     "HealPercentBonus": 0.0,
     "HealReceivedFlatBonus": 0,

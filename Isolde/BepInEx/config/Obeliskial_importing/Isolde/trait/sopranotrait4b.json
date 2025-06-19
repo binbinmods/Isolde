@@ -23,7 +23,7 @@
     "DamageBonusPercentValue": 0.0,
     "DamageBonusPercentValue2": 0.0,
     "DamageBonusPercentValue3": 0.0,
-    "Description": "Buffer +1, Fast +1. Sharp on Monsters reduces all damage by 0.5 per charge. Soprano Duality can be activated an additional time.",
+    "Description": "Buffer +1, Fast +1. Sharp on Monsters also reduces All Damage by 0.5 per charge (amplified rather than reduced by Rust). Soprano Duality can be activated an additional time.",
     "HealFlatBonus": 0,
     "HealPercentBonus": 0.0,
     "HealReceivedFlatBonus": 0,
