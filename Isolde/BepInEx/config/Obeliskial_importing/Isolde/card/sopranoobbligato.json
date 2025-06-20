@@ -17,9 +17,8 @@
     "UpgradesTo2": "",
     "UpgradesToRare": "",
     "CardClass": "Special",
-    "CardType": "Song",
+    "CardType": "None",
     "CardTypeAux": [
-        "Spell"
     ],
     "CardName": "Obbligato",
     "CardRarity": "Rare",

@@ -44,10 +44,10 @@ namespace Isolde
             RegisterMod(
                 _name: PluginInfo.PLUGIN_NAME,
                 _author: "binbin",
-                _description: "Character, the Soprano.",
+                _description: "Isolde, the Soprano.",
                 _version: PluginInfo.PLUGIN_VERSION,
                 _date: ModDate,
-                _link: @"https://github.com/binbinmods/Character",
+                _link: @"https://github.com/binbinmods/Isolde",
                 _contentFolder: "Isolde",
                 _type: ["content", "hero", "trait"]
             );

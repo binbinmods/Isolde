@@ -16,7 +16,7 @@ This mod relies on [Obeliskial Content](https://across-the-obelisk.thunderstore.
 
 ## Isolde Summary
 
-![Summary](https://raw.githubusercontent.com/binbinmods/Isolde/refs/heads/main/Assets/IsoldeSummary.png)
+![Summary](https://raw.githubusercontent.com/binbinmods/Isolde/refs/heads/main/Assets/isoldeSummary.png)
 
 ## Installation (manual)
 
