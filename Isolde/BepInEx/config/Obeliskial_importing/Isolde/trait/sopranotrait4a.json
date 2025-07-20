@@ -23,7 +23,7 @@
     "DamageBonusPercentValue": 0.0,
     "DamageBonusPercentValue2": 0.0,
     "DamageBonusPercentValue3": 0.0,
-    "Description": "Chill +1, Insane +1. Once per turn, when you play a Cold Spell, add a randomly upgraded Last Requiem to your hand. Cost 0 and Vanish.",
+    "Description": "Chill +1, Insane +1. You do not lose Stanza III. Once per turn, when you play a Cold Spell, Progress your Stanza, and add a randomly upgraded Last Requiem to your hand with cost 0 and Vanish.",
     "HealFlatBonus": 0,
     "HealPercentBonus": 0.0,
     "HealReceivedFlatBonus": 0,

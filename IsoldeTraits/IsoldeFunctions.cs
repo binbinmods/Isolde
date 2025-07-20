@@ -354,5 +354,21 @@ namespace Isolde
                 hero.SetAura(null, GetAuraCurseData("shield"), amountOverhealed, useCharacterMods: false);
             }
         }
+
+        public static void ProgressStanza(Character _character)
+        {
+            if (_character.HasEffect("stanzaii"))
+            {
+                _character.SetAuraTrait(_character, "stanzaiii", 1);
+            }
+            else if (_character.HasEffect("stanzai"))
+            {
+                _character.SetAuraTrait(_character, "stanzaii", 1);
+            }
+            else if (!_character.HasEffect("stanzai") && !_character.HasEffect("stanzaii") && !_character.HasEffect("stanzaiii"))
+            {
+                _character.SetAuraTrait(_character, "stanzai", 1);
+            }
+        }
     }
 }

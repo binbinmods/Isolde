@@ -7,7 +7,7 @@ using UnityEngine;
 using static Isolde.CustomFunctions;
 using static Isolde.Plugin;
 using static Isolde.DescriptionFunctions;
-// using static Isolde.CustomFunctions;
+using static Isolde.CharacterFunctions;
 // using static Obeliskial_Essentials.CustomFunctions;
 using System.Text;
 using TMPro;
@@ -114,8 +114,9 @@ namespace Isolde
                 {
                     if (!((UnityEngine.Object)MatchManager.Instance != (UnityEngine.Object)null) || !((UnityEngine.Object)_castedCard != (UnityEngine.Object)null))
                         return;
-                    AddCardToHand("lastrequiem");
+                    AddCardToHand("lastrequiem", randomlyUpgraded: true);
                     IncrementTraitActivations(traitId);
+                    ProgressStanza(_character);
                 }
 
                 LogDebug($"Handling Trait {traitId}: {traitName}");
@@ -187,6 +188,13 @@ namespace Isolde
                         __result.AuraDamageType4 = Enums.DamageType.All;
                         __result.AuraDamageIncreasedPerStack4 = hasRust ? -0.75f : -0.5f;
                     }
+                    traitOfInterest = trait4a;
+                    if (IfCharacterHas(characterOfInterest, CharacterHas.Trait, traitOfInterest, AppliesTo.ThisHero))
+                    {
+                        __result.ConsumedAtTurn = false;
+                        __result.AuraConsumed = 0;
+                    }
+
                     break;
             }
         }
