@@ -105,7 +105,7 @@ namespace Isolde
             else if (_trait == trait4a)
             {
                 // trait 4a;
-                // Once per turn, when you play a Cold Spell, add a randomly upgraded Last Requiem to your hand. Cost 0 and Vanish.
+                // Once per turn, when you play a Cold Spell, add a corrupted Neverending Story to your hand. Cost 0 and Vanish.
 
                 string traitName = traitData.TraitName;
                 string traitId = _trait;
@@ -114,9 +114,9 @@ namespace Isolde
                 {
                     if (!((UnityEngine.Object)MatchManager.Instance != (UnityEngine.Object)null) || !((UnityEngine.Object)_castedCard != (UnityEngine.Object)null))
                         return;
-                    AddCardToHand("lastrequiem", randomlyUpgraded: true);
+                    AddCardToHand("neverendingstoryrare", randomlyUpgraded: false, costZero: true, vanish: true);
                     IncrementTraitActivations(traitId);
-                    ProgressStanza(_character);
+                    // ProgressStanza(_character);
                 }
 
                 LogDebug($"Handling Trait {traitId}: {traitName}");
@@ -199,35 +199,6 @@ namespace Isolde
             }
         }
 
-        [HarmonyPrefix]
-        [HarmonyPatch(typeof(Character), "HealAuraCurse")]
-        public static void HealAuraCursePrefix(ref Character __instance, AuraCurseData AC, ref int __state)
-        {
-            LogInfo($"HealAuraCursePrefix {subclassName}");
-            string traitOfInterest = trait4b;
-            if (IsLivingHero(__instance) && __instance.HaveTrait(traitOfInterest) && AC == GetAuraCurseData("stealth"))
-            {
-                __state = Mathf.FloorToInt(__instance.GetAuraCharges("stealth") * 0.25f);
-                // __instance.SetAuraTrait(null, "stealth", 1);
-
-            }
-
-        }
-
-        [HarmonyPostfix]
-        [HarmonyPatch(typeof(Character), "HealAuraCurse")]
-        public static void HealAuraCursePostfix(ref Character __instance, AuraCurseData AC, int __state)
-        {
-            LogInfo($"HealAuraCursePrefix {subclassName}");
-            string traitOfInterest = trait4b;
-            if (IsLivingHero(__instance) && __instance.HaveTrait(traitOfInterest) && AC == GetAuraCurseData("stealth") && __state > 0)
-            {
-                // __state = __instance.GetAuraCharges("stealth");
-                __instance.SetAuraTrait(null, "stealth", __state);
-            }
-
-        }
-
 
 
 
@@ -260,34 +231,6 @@ namespace Isolde
 
 
 
-        [HarmonyPostfix]
-        [HarmonyPatch(typeof(CardData), nameof(CardData.SetDescriptionNew))]
-        public static void SetDescriptionNewPostfix(ref CardData __instance, bool forceDescription = false, Character character = null, bool includeInSearch = true)
-        {
-            // LogInfo("executing SetDescriptionNewPostfix");
-            if (__instance == null)
-            {
-                LogDebug("Null Card");
-                return;
-            }
-            if (!Globals.Instance.CardsDescriptionNormalized.ContainsKey(__instance.Id))
-            {
-                LogError($"missing card Id {__instance.Id}");
-                return;
-            }
-
-
-            if (__instance.CardName == "Mind Maze")
-            {
-                StringBuilder stringBuilder1 = new StringBuilder();
-                LogDebug($"Current description for {__instance.Id}: {stringBuilder1}");
-                string currentDescription = Globals.Instance.CardsDescriptionNormalized[__instance.Id];
-                stringBuilder1.Append(currentDescription);
-                // stringBuilder1.Replace($"When you apply", $"When you play a Mind Spell\n or apply");
-                stringBuilder1.Replace($"Lasts one turn", $"Lasts two turns");
-                BinbinNormalizeDescription(ref __instance, stringBuilder1);
-            }
-        }
 
     }
 }
